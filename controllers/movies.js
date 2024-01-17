@@ -48,13 +48,13 @@ function createMovie(req, res, next) {
 }
 
 function deleteMovie(req, res, next) {
-  return movieModel.findById(req.params.cardId)
+  return movieModel.findById(req.params.movieId)
     .then((card) => {
       if (!card) return next(new NotFoundError('Фильм не найден'));
 
       if ((String)(card.owner) !== (String)(req.user._id)) return next(new MasterError('Этот фильм добавил другой пользователь'));
 
-      return movieModel.deleteOne({ _id: req.params.cardId })
+      return movieModel.deleteOne({ _id: req.params.movieId })
         .then((result) => {
           const { deletedCount } = result;
 
