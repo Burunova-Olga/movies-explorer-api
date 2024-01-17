@@ -1,2 +1,4 @@
 # movies-explorer-api
-бэкенд диплома
+Дипломный проект
+
+backend: https://api.burunova.diploma.nomoredomainsmonster.ru
