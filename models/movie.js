@@ -62,6 +62,7 @@ const movieSchema = new mongoose.Schema({
   {
     type: Number,
     required: true,
+    unique: [true, 'Такой id уже существует'],
   },
   nameRU:
     {
