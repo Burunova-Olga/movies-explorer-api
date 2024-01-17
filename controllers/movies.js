@@ -5,7 +5,7 @@ const UnknownError = require('../errors/unknown-error');
 const MasterError = require('../errors/master-error');
 
 function readUserMovies(req, res, next) {
-  return movieModel.find()
+  return movieModel.find({ owner: req.user._id })
     .then((cards) => res.send(cards))
     .catch((err) => next(new UnknownError(`Неизвестная ошибка: : ${err.message}`)));
 }
@@ -48,13 +48,13 @@ function createMovie(req, res, next) {
 }
 
 function deleteMovie(req, res, next) {
-  return movieModel.findById(req.params.movieId)
+  return movieModel.findOne({ movieId: req.params.movieId })
     .then((card) => {
       if (!card) return next(new NotFoundError('Фильм не найден'));
 
       if ((String)(card.owner) !== (String)(req.user._id)) return next(new MasterError('Этот фильм добавил другой пользователь'));
 
-      return movieModel.deleteOne({ _id: req.params.movieId })
+      return movieModel.deleteOne({ movieId: req.params.movieId })
         .then((result) => {
           const { deletedCount } = result;
 
