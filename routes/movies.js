@@ -2,10 +2,10 @@ const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const movieController = require('../controllers/movies');
 
-router.get('/', movieController.readUserMovies);
+router.get('/movies', movieController.readUserMovies);
 
 const linkPattern = /((http|https):\/)?\/(w{3}.)?[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=/]/;
-router.post('/', celebrate({
+router.post('/movies', celebrate({
   body: Joi.object().keys({
     country: Joi.string().required().min(2).max(30),
     director: Joi.string().required().min(2).max(30),
@@ -21,9 +21,9 @@ router.post('/', celebrate({
   }),
 }), movieController.createMovie);
 
-router.delete('/:movieId', celebrate({
+router.delete('/movies/:_id', celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().required().min(0),
+    _id: Joi.string().required().min(0),
   }),
 }), movieController.deleteMovie);
 

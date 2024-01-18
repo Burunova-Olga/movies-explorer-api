@@ -2,9 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
-const { errors, celebrate, Joi } = require('celebrate');
+const { errors } = require('celebrate');
 const auth = require('./middlewares/auth');
-const { createUser, login } = require('./controllers/users');
 const NotFoundError = require('./errors/not-found-error');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -21,25 +20,13 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
-    name: Joi.string().min(2).max(30),
-  }),
-}), createUser);
-
-app.post('/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().email().required(),
-    password: Joi.string().required().min(8),
-  }),
-}), login);
+app.use(require('./routes/signup'));
+app.use(require('./routes/signin'));
 
 app.use(auth);
 
-app.use('/users', require('./routes/users'));
-app.use('/movies', require('./routes/movies'));
+app.use(require('./routes/users'));
+app.use(require('./routes/movies'));
 
 app.use((req, res, next) => {
   next(new NotFoundError('Неверный путь'));
@@ -57,7 +44,7 @@ app.use((err, req, res, next) => {
     .send({
     // проверяем статус и выставляем сообщение в зависимости от него
       message: statusCode === 500
-        ? 'На сервере произошла ошибка'
+        ? message // 'На сервере произошла ошибка'
         : message,
     })
     .end();
