@@ -6,34 +6,26 @@ const movieSchema = new mongoose.Schema({
   {
     type: String,
     required: [true, 'Поле должно быть заполнено'],
-    minlength: [2, 'Минимальная длина поля 2 символа'],
-    maxlength: [30, 'Максимальная длина поля 30 символа'],
   },
   director:
   {
     type: String,
     required: [true, 'Поле должно быть заполнено'],
-    minlength: [2, 'Минимальная длина поля 2 символа'],
-    maxlength: [30, 'Максимальная длина поля 30 символа'],
   },
   duration:
   {
     type: Number,
     required: [true, 'Поле должно быть заполнено'],
-    min: [0.1, 'Продолжительность фильма не может быть нулевой'],
   },
   year:
   {
     type: String,
     required: [true, 'Поле должно быть заполнено'],
-    minlength: [4, 'До 1000-го года фильмы не снимали'],
-    maxlength: [4, 'Обращение зафиксировано. Сотрудник ФСБ прибудет в течение 10 минут для изъятия Вашей машины времени. Просьба не оказывать сопротивления.'],
   },
   description:
   {
     type: String,
     required: [true, 'Поле должно быть заполнено'],
-    minlength: [2, 'Минимальная длина поля 2 символа'],
   },
   image:
   {
@@ -64,18 +56,14 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   nameRU:
-    {
-      type: String,
-      required: [true, 'Поле должно быть заполнено'],
-      minlength: [2, 'Минимальная длина поля 2 символа'],
-      maxlength: [30, 'Максимальная длина поля 30 символа'],
-    },
+  {
+    type: String,
+    required: [true, 'Поле должно быть заполнено'],
+  },
   nameEN:
   {
     type: String,
     required: [true, 'Поле должно быть заполнено'],
-    minlength: [2, 'Минимальная длина поля 2 символа'],
-    maxlength: [30, 'Максимальная длина поля 30 символа'],
   },
 }, { versionKey: false });
 

@@ -93,6 +93,7 @@ function updateUser(req, res, next) {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') return next(new DataError(`Неверные входные данные: ${err.message}`));
+      if (err.code === 11000) return next(new DuplicateError(`Данный email приналежит другому пользователю: ${err.message}`));
       return next(new UnknownError(`Неизвестная ошибка: ${err.message}`));
     });
 }
