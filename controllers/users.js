@@ -57,7 +57,7 @@ function createUser(req, res, next) {
       _id: user._id,
     }))
     .catch((err) => {
-      if (err.code === 11000) return next(new DuplicateError(`Данный email уже зарегестрирован: ${err.message}`));
+      if (err.code === 11000) return next(new DuplicateError(`Данный email уже зарегистрирован: ${err.message}`));
 
       if (err.name === 'ValidationError') return next(new DataError(`Неверные входные данные: ${err.message}`));
 
