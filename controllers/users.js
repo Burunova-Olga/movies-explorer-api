@@ -37,7 +37,7 @@ function login(req, res, next) {
           ),
         });
     })
-    .catch((err) => next(new NoAccessError(`Ошибка доступа: ${err.message}`)));
+    .catch((err) => next(new NoAccessError(`Ошибка доступа`)));
 }
 
 function createUser(req, res, next) {
@@ -57,11 +57,11 @@ function createUser(req, res, next) {
       _id: user._id,
     }))
     .catch((err) => {
-      if (err.code === 11000) return next(new DuplicateError(`Данный email уже зарегистрирован: ${err.message}`));
+      if (err.code === 11000) return next(new DuplicateError(`Данный email уже зарегистрирован`));
 
-      if (err.name === 'ValidationError') return next(new DataError(`Неверные входные данные: ${err.message}`));
+      if (err.name === 'ValidationError') return next(new DataError(`Неверные входные данные`));
 
-      return next(new UnknownError(`Неизвестная ошибка: : ${err.message}`));
+      return next(new UnknownError(`Неизвестная ошибка: ${err.message}`));
     });
 }
 
@@ -72,9 +72,9 @@ function readMe(req, res, next) {
       return res.send({ message: user });
     })
     .catch((err) => {
-      if (err.name === 'CastError') return next(new DataError(`Неверные входные данные: ${err.message}`));
+      if (err.name === 'CastError') return next(new DataError(`Неверные входные данные`));
 
-      if (err.name === 'ReferenceError') return next(new NotFoundError(`Пользователь не найден: ${err.message}`));
+      if (err.name === 'ReferenceError') return next(new NotFoundError(`Пользователь не найден`));
       return next(new UnknownError(`Неизвестная ошибка: ${err.message}`));
     });
 }
@@ -92,8 +92,8 @@ function updateUser(req, res, next) {
       return res.send(user);
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') return next(new DataError(`Неверные входные данные: ${err.message}`));
-      if (err.code === 11000) return next(new DuplicateError(`Данный email приналежит другому пользователю: ${err.message}`));
+      if (err.name === 'ValidationError') return next(new DataError(`Неверные входные данные`));
+      if (err.code === 11000) return next(new DuplicateError(`Данный email приналежит другому пользователю`));
       return next(new UnknownError(`Неизвестная ошибка: ${err.message}`));
     });
 }

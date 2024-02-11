@@ -42,8 +42,8 @@ function createMovie(req, res, next) {
   })
     .then((card) => res.status(201).send(card))
     .catch((err) => {
-      if (err.name === 'ValidationError') return next(new DataError(`Неверные входные данные: : ${err.message}`));
-      return next(new UnknownError(`Неизвестная ошибка: : ${err.message}`));
+      if (err.name === 'ValidationError') return next(new DataError(`Неверные входные данные`));
+      return next(new UnknownError(`Неизвестная ошибка: ${err.message}`));
     });
 }
 
@@ -62,12 +62,12 @@ function deleteMovie(req, res, next) {
           return res.send({ message: 'Фильм успешно удален' });
         })
         .catch((err) => {
-          if (err.name === 'CastError') return next(new DataError(`Неверные входные данные: : ${err.message}`));
-          return next(new UnknownError(`Неизвестная ошибка: : ${err.message}`));
+          if (err.name === 'CastError') return next(new DataError(`Неверные входные данные`));
+          return next(new UnknownError(`Неизвестная ошибка: ${err.message}`));
         });
     })
     .catch((err) => {
-      if (err.name === 'CastError') return next(new DataError(`Неверные входные данные: ${err.message}`));
+      if (err.name === 'CastError') return next(new DataError(`Неверные входные данные`));
       return next(new UnknownError(`Неизвестная ошибка: ${err.message}`));
     });
 }
