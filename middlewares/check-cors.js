@@ -1,9 +1,9 @@
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
-  'https://api.burunova.diploma.nomoredomainsmonster.ru/',
-  'http://api.burunova.diploma.nomoredomainsmonster.ru/',
   'https://burunova.diploma.nomoredomainswork.ru/',
   'http://burunova.diploma.nomoredomainswork.ru/',
+  'https://api.burunova.diploma.nomoredomainsmonster.ru/',
+  'http://api.burunova.diploma.nomoredomainsmonster.ru/',
   'http://localhost:3000'
 ];
 
