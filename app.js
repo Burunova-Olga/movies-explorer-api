@@ -4,10 +4,11 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const auth = require('./middlewares/auth');
-const checkCORS = require('./middlewares/check-cors');
 const NotFoundError = require('./errors/not-found-error');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { limiter } = require('./middlewares/express-rate-limit');
+
+const cors = require('cors');
 
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
 const app = express();
@@ -17,8 +18,22 @@ mongoose.connect(DB_URL)
     console.log('MongoDB connected');
   });
 
+// CORS
+const options = {
+  origin: [
+    '[undefined](http://localhost:3000)',
+    'https://burunova.diploma.nomoredomainswork.ru/'
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
+
+app.use(cors(options));
+
 app.use(requestLogger);
-app.use(checkCORS);
 app.use(helmet());
 app.use(limiter);
 app.use(bodyParser.json());
