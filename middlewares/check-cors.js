@@ -4,7 +4,8 @@ const allowedCors = [
   'https://burunova.diploma.nomoredomainswork.ru',
   'https://api.burunova.diploma.nomoredomainsmonster.ru',
   'https://api.burunova.diploma.nomoredomainsmonster.ru',
-  'https://localhost:3000'
+  'http://localhost:3000',
+
 ];
 
 module.exports = (req, res, next) => {
